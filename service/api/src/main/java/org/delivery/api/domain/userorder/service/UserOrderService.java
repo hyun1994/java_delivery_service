@@ -14,9 +14,17 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class UserOrderServcie {
+public class UserOrderService {
 
     private final UserOrderRepository userOrderRepository;
+
+    public UserOrderEntity getUserOrderWithOutStatusWithTrow(
+         Long id,
+         Long userId
+    ){
+        return userOrderRepository.findAllByIdAndUserId(id, userId)
+                .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT));
+    }
 
     public UserOrderEntity getUserOrderWithThrow(
         Long id,
